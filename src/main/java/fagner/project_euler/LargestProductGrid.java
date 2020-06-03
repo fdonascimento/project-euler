@@ -1,5 +1,6 @@
 package fagner.project_euler;
 
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 
 /**
@@ -13,18 +14,40 @@ public class LargestProductGrid {
       TODO Document how I'm solving the problem. I may not remember in the future and I want to understand it later
            without too much pain.
 
-      TODO This algorithm only works for a 4x4 grid. The goal is to find the product of 4 adjacent numbers.
-           I need to implement an algorithm for a bigger grid that is going to split the grid into chunks of
-           4x4 grids to pass to this method.
+      TODO The algorithm works for products in a row and in a column. I need to figure out how to do it for diagonal.
 
-      TODO I need to make it work first, then I can think about improvement in terms of performance and design.
      */
     int calculate(RealMatrix grid) {
+        int[] diagonalProducts = new int[2];
+        double greatestProduct = 1;
+
         for (int i = 0; i < grid.getRowDimension(); i++) {
             for (int j = 0; j < grid.getRow(i).length; j++) {
+                if (j <= grid.getRowDimension()-4) {
+                    double productRow = grid.getEntry(i, j) *
+                            grid.getEntry(i, j + 1) *
+                            grid.getEntry(i, j + 2) *
+                            grid.getEntry(i, j + 3);
+
+                    if (productRow > greatestProduct) {
+                        greatestProduct = productRow;
+                    }
+                }
+
+                if (i <= grid.getRowDimension()-4) {
+                    double productColumn = grid.getEntry(i, j) *
+                            grid.getEntry(i + 1, j) *
+                            grid.getEntry(i + 2, j) *
+                            grid.getEntry(i + 3, j);
+
+                    if (productColumn > greatestProduct) {
+                        greatestProduct = productColumn;
+                    }
+                }
             }
         }
-        return 0;
+
+        return (int) greatestProduct;
     }
     int findGreatestProductOf4AdjacentNumbers(RealMatrix grid) {
         int[] rowProducts = new int[grid.getRowDimension()];

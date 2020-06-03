@@ -16,7 +16,7 @@ public class LargestProductGridTest {
     }
 
     @Test
-    public void calculateGrid20GreatestProductInFirstDiagonal() {
+    public void calculateGrid20GreatestProductInDiagonal() {
         //given
         RealMatrix grid = MatrixUtils.createRealMatrix(
                 new double[][]{
@@ -50,6 +50,76 @@ public class LargestProductGridTest {
         assertThat(result).isEqualTo(1788696);
     }
 
+    @Test
+    public void calculateGrid20GreatestProductInRow() {
+        //given
+        RealMatrix grid = MatrixUtils.createRealMatrix(
+                new double[][]{
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 26, 63, 78, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+                }
+        );
+
+        //when
+        int result = calculator.calculate(grid);
+
+        //then
+        assertThat(result).isEqualTo(1788696);
+    }
+
+    @Test
+    public void calculateGrid20GreatestProductInColumn() {
+        //given
+        RealMatrix grid = MatrixUtils.createRealMatrix(
+                new double[][]{
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 26},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 63},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 78},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 14},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+                }
+        );
+
+        //when
+        int result = calculator.calculate(grid);
+
+        //then
+        assertThat(result).isEqualTo(1788696);
+    }
+
 
     @Test
     public void calculateGrid4GreatestProductInFirstDiagonal() {
@@ -64,7 +134,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -83,7 +153,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -102,7 +172,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -121,7 +191,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -140,7 +210,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -159,7 +229,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -178,7 +248,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -197,7 +267,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -216,7 +286,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
@@ -235,7 +305,7 @@ public class LargestProductGridTest {
         );
 
         //when
-        int result = calculator.findGreatestProductOf4AdjacentNumbers(grid);
+        int result = calculator.calculate(grid);
 
         //then
         assertThat(result).isEqualTo(1788696);
