@@ -8,64 +8,88 @@ import org.apache.commons.math3.linear.RealMatrix;
  */
 public class LargestProductGrid {
 
-
     /*TODO Analyze algorithm complexity.
-      TODO Remove duplicate code without compromise the performance
-      TODO Document how I'm solving the problem. I may not remember in the future and I want to understand it later
-           without too much pain.
      */
     int calculate(RealMatrix grid) {
         double greatestProduct = 1;
 
-        for (int i = 0; i < grid.getRowDimension(); i++) {
-            for (int j = 0; j < grid.getRow(i).length; j++) {
-                if (j <= grid.getRowDimension()-4) {
-                    double productRow = grid.getEntry(i, j) *
-                            grid.getEntry(i, j + 1) *
-                            grid.getEntry(i, j + 2) *
-                            grid.getEntry(i, j + 3);
-
-                    if (productRow > greatestProduct) {
-                        greatestProduct = productRow;
-                    }
-                }
-
-                if (i <= grid.getRowDimension()-4) {
-                    double productColumn = grid.getEntry(i, j) *
-                            grid.getEntry(i + 1, j) *
-                            grid.getEntry(i + 2, j) *
-                            grid.getEntry(i + 3, j);
-
-                    if (productColumn > greatestProduct) {
-                        greatestProduct = productColumn;
-                    }
-                }
-
-                if (j <= grid.getRowDimension()-4 && i <= grid.getRowDimension()-4) {
-                    double productDiagonal = grid.getEntry(i, j) *
-                            grid.getEntry(i + 1, j +1) *
-                            grid.getEntry(i + 2, j + 2) *
-                            grid.getEntry(i + 3, j + 3);
-
-                    if (productDiagonal > greatestProduct) {
-                        greatestProduct = productDiagonal;
-                    }
-                }
-
-                if (j >= 3 && i <= grid.getRowDimension()-4) {
-                    double productInverseDiagonal = grid.getEntry(i, j) *
-                            grid.getEntry(i + 1, j - 1) *
-                            grid.getEntry(i + 2, j - 2) *
-                            grid.getEntry(i + 3, j - 3);
-
-                    if (productInverseDiagonal > greatestProduct) {
-                        greatestProduct = productInverseDiagonal;
-                    }
-                }
+        for (int rowIndex = 0; rowIndex < grid.getRowDimension(); rowIndex++) {
+            for (int columnIndex = 0; columnIndex < grid.getRow(rowIndex).length; columnIndex++) {
+                greatestProduct = calculateGreatestProduct4AdjacentNumbersInARow(grid, rowIndex, columnIndex, greatestProduct);
+                greatestProduct = calculateGreatestProduct4AdjacentNumbersInAColumn(grid, rowIndex, columnIndex, greatestProduct);
+                greatestProduct = calculateGreatestProduct4AdjacentNumbersInADiagonal(grid, rowIndex, columnIndex, greatestProduct);
+                greatestProduct = calculateGreatestProduct4AdjacentNumbersInAnInverseDiagonal(grid, rowIndex, columnIndex, greatestProduct);
             }
         }
 
         return (int) greatestProduct;
+    }
+
+    private double calculateGreatestProduct4AdjacentNumbersInAnInverseDiagonal(RealMatrix grid, int rowIndex, int columnIndex, double greatestProduct) {
+        if (columnIndex >= 3 && rowIndex <= grid.getRowDimension()-4) {
+            double productInverseDiagonal = multiply4AdjacentNumberInAnInverseDiagonal(grid, rowIndex, columnIndex);
+            return getGreatestProduct(greatestProduct, productInverseDiagonal);
+        }
+        return greatestProduct;
+    }
+
+    private double calculateGreatestProduct4AdjacentNumbersInADiagonal(RealMatrix grid, int rowIndex, int columnIndex, double greatestProduct) {
+        if (columnIndex <= grid.getRowDimension()-4 && rowIndex <= grid.getRowDimension()-4) {
+            double productDiagonal = multiply4AdjacentNumbersInADiagonal(grid, rowIndex, columnIndex);
+            return getGreatestProduct(greatestProduct, productDiagonal);
+        }
+        return greatestProduct;
+    }
+
+    private double calculateGreatestProduct4AdjacentNumbersInAColumn(RealMatrix grid, int rowIndex, int columnIndex, double greatestProduct) {
+        if (rowIndex <= grid.getRowDimension()-4) {
+            double productColumn = multiply4AdjacentNumbersInAColumn(grid, rowIndex, columnIndex);
+            return getGreatestProduct(greatestProduct, productColumn);
+        }
+        return greatestProduct;
+    }
+
+    private double calculateGreatestProduct4AdjacentNumbersInARow(RealMatrix grid, int rowIndex, int columnIndex, double greatestProduct) {
+        if (columnIndex <= grid.getRowDimension()-4) {
+            double productRow = multiply4AdjacentNumbersInARow(grid, rowIndex, columnIndex);
+            return getGreatestProduct(greatestProduct, productRow);
+        }
+        return greatestProduct;
+    }
+
+    private double getGreatestProduct(double greatestProduct, double newProduct) {
+        if (newProduct > greatestProduct) {
+            return newProduct;
+        }
+        return greatestProduct;
+    }
+
+    private double multiply4AdjacentNumberInAnInverseDiagonal(RealMatrix grid, int rowIndex, int columnIndex) {
+        return grid.getEntry(rowIndex, columnIndex) *
+                grid.getEntry(rowIndex + 1, columnIndex - 1) *
+                grid.getEntry(rowIndex + 2, columnIndex - 2) *
+                grid.getEntry(rowIndex + 3, columnIndex - 3);
+    }
+
+    private double multiply4AdjacentNumbersInADiagonal(RealMatrix grid, int i, int j) {
+        return grid.getEntry(i, j) *
+                grid.getEntry(i + 1, j +1) *
+                grid.getEntry(i + 2, j + 2) *
+                grid.getEntry(i + 3, j + 3);
+    }
+
+    private double multiply4AdjacentNumbersInARow(RealMatrix grid, int rowIndex, int columnIndex) {
+        return grid.getEntry(rowIndex, columnIndex) *
+                grid.getEntry(rowIndex, columnIndex + 1) *
+                grid.getEntry(rowIndex, columnIndex + 2) *
+                grid.getEntry(rowIndex, columnIndex + 3);
+    }
+
+    private double multiply4AdjacentNumbersInAColumn(RealMatrix grid, int rowIndex, int columnIndex) {
+        return grid.getEntry(rowIndex, columnIndex) *
+                grid.getEntry(rowIndex + 1, columnIndex) *
+                grid.getEntry(rowIndex + 2, columnIndex) *
+                grid.getEntry(rowIndex + 3, columnIndex);
     }
 
     public static void main(String[] args) {
