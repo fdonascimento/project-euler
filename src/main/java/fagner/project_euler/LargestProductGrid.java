@@ -38,28 +38,28 @@ public class LargestProductGrid {
     private void calculateGreatestProduct4AdjacentNumbersInAnInverseDiagonal(RealMatrix grid, int rowIndex, int columnIndex) {
         if (columnIndex >= 3 && rowIndex <= grid.getRowDimension()-4) {
             double productInverseDiagonal = multiply4AdjacentNumberInAnInverseDiagonal(grid, rowIndex, columnIndex);
-            greatestProduct.setGreatestProduct(productInverseDiagonal);
+            greatestProduct.setIfItIsTheGreatestProduct(productInverseDiagonal);
         }
     }
 
     private void calculateGreatestProduct4AdjacentNumbersInADiagonal(RealMatrix grid, int rowIndex, int columnIndex) {
         if (columnIndex <= grid.getRowDimension()-4 && rowIndex <= grid.getRowDimension()-4) {
             double productDiagonal = multiply4AdjacentNumbersInADiagonal(grid, rowIndex, columnIndex);
-            greatestProduct.setGreatestProduct(productDiagonal);
+            greatestProduct.setIfItIsTheGreatestProduct(productDiagonal);
         }
     }
 
     private void calculateGreatestProduct4AdjacentNumbersInAColumn(RealMatrix grid, int rowIndex, int columnIndex) {
         if (rowIndex <= grid.getRowDimension()-4) {
             double productColumn = multiply4AdjacentNumbersInAColumn(grid, rowIndex, columnIndex);
-            greatestProduct.setGreatestProduct(productColumn);
+            greatestProduct.setIfItIsTheGreatestProduct(productColumn);
         }
     }
 
     private void calculateGreatestProduct4AdjacentNumbersInARow(RealMatrix grid, int rowIndex, int columnIndex) {
         if (columnIndex <= grid.getRowDimension()-4) {
             double productRow = multiply4AdjacentNumbersInARow(grid, rowIndex, columnIndex);
-            greatestProduct.setGreatestProduct(productRow);
+            greatestProduct.setIfItIsTheGreatestProduct(productRow);
         }
     }
 

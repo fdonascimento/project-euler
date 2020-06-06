@@ -7,7 +7,7 @@ public class GreatestProduct {
         this.greatestProduct = initialValue;
     }
 
-    public void setGreatestProduct(double value) {
+    public void setIfItIsTheGreatestProduct(double value) {
         if (value > greatestProduct) {
             this.greatestProduct = value;
         }
