@@ -15,6 +15,13 @@ public class HighlyDivisibleTriangularNumberTest {
     }
 
     @Test
+    void findFirstTriangularNumberWithDivisorsOver500Then76576500() {
+        int result = calculator.findFirstTriangularNumberWithDivisorsOver(500);
+
+        assertThat(result).isEqualTo(76576500);
+    }
+
+    @Test
     void findFirstTriangularNumberWithDivisorsOver5Then28() {
         int result = calculator.findFirstTriangularNumberWithDivisorsOver(5);
 
