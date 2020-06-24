@@ -12,7 +12,14 @@ public class LongestCollatzSequence {
 
         for (int i = 2; i <= lastNumber; i++) {
             CollatzSequence collatzSequence = new CollatzSequence(i);
+            collatzSequence.restartSequence();
             collatzSequence.calculateSequence();
+            CollatzSequence lastNotCalculated = collatzSequence.getLastNotCalculated();
+            while (lastNotCalculated != null) {
+                lastNotCalculated.calculateSequence();
+                collatzSequence.addTerms(lastNotCalculated.getNumberOfTerms());
+                lastNotCalculated = lastNotCalculated.getLastNotCalculated();
+            }
 
             if (collatzSequence.largerThan(largestSequence)) {
                 largestSequence = collatzSequence;
@@ -25,7 +32,7 @@ public class LongestCollatzSequence {
     public static void main(String[] args) {
         LongestCollatzSequence calculator = new LongestCollatzSequence();
         long startTime = Calendar.getInstance().getTimeInMillis();
-        int result = calculator.calculate(100_000);
+        int result = calculator.calculate(1_000_000);
         long endTime = Calendar.getInstance().getTimeInMillis();
 		System.out.println("Result = "+result +" | time in ms = "+(endTime-startTime));
     }

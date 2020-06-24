@@ -6,9 +6,11 @@ import java.util.Map;
 public class CollatzSequence {
 
     private static Map<Integer, CollatzSequence> sequenceMap = new HashMap<>();
+    private static int currentSequence;
     private int startNumber;
     private int numberOfTerms;
     private CollatzSequence nextSequence;
+    private CollatzSequence lastNotCalculated;
 
     public CollatzSequence(int startNumber) {
         this.startNumber = startNumber;
@@ -26,7 +28,16 @@ public class CollatzSequence {
         return this.numberOfTerms > other.numberOfTerms;
     }
 
+    public void addTerms(int terms) {
+        numberOfTerms += terms;
+    }
+
+    public void restartSequence() {
+        currentSequence = 0;
+    }
+
     public void calculateSequence() {
+        currentSequence++;
         if (startNumber == 1) {
             nextSequence = null;
             numberOfTerms = 1;
@@ -35,11 +46,24 @@ public class CollatzSequence {
             nextSequence = getSequenceFromMap(nextTerm);
             if (nextSequence == null) {
                  nextSequence = new CollatzSequence(nextTerm);
+                 if (currentSequence > 100) {
+                     currentSequence = 0;
+                     lastNotCalculated = nextSequence;
+                     return;
+                 }
                  nextSequence.calculateSequence();
             }
             numberOfTerms = 1 + nextSequence.getNumberOfTerms();
         }
         sequenceMap.put(startNumber, this);
+        lastNotCalculated = null;
+    }
+
+    public CollatzSequence getLastNotCalculated() {
+        if (lastNotCalculated == null && nextSequence != null) {
+            return nextSequence.getLastNotCalculated();
+        }
+        return lastNotCalculated;
     }
 
     int calculateNextTerm() {
