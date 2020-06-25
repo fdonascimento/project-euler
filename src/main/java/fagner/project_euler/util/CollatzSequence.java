@@ -26,6 +26,13 @@ public class CollatzSequence {
         return this.numberOfTerms > other.numberOfTerms;
     }
 
+    public void printSequence() {
+        System.out.print(startNumber+ " ");
+        if (nextSequence != null ) {
+            nextSequence.printSequence();
+        }
+    }
+
     public void calculateSequence() {
         if (startNumber == 1) {
             nextSequence = null;

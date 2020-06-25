@@ -45,4 +45,15 @@ public class CollatzSequenceTest {
         //then
         assertThat(collatzSequence9.getNumberOfTerms()).isEqualTo(20);
     }
+
+    @Test
+    public void calculateSequence_500_111terms() {
+        //given
+        CollatzSequence collatzSequence500 = new CollatzSequence(500);
+
+        //when
+        collatzSequence500.calculateSequence();
+        //then
+        assertThat(collatzSequence500.getNumberOfTerms()).isEqualTo(111);
+    }
 }
