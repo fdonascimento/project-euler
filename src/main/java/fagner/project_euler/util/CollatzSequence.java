@@ -9,9 +9,14 @@ public class CollatzSequence {
     private int startNumber;
     private int numberOfTerms;
     private CollatzSequence nextSequence;
+    private int references;
 
-    public CollatzSequence(int startNumber) {
+    private CollatzSequence(int startNumber) {
         this.startNumber = startNumber;
+    }
+
+    public boolean isReferencedByTwoTerms() {
+        return references == 2;
     }
 
     public int getStartNumber() {
@@ -33,20 +38,15 @@ public class CollatzSequence {
         }
     }
 
-    public void calculateSequence() {
+    private void calculateSequence() {
         if (startNumber == 1) {
             nextSequence = null;
             numberOfTerms = 1;
         } else {
             int nextTerm = calculateNextTerm();
-            nextSequence = getSequenceFromMap(nextTerm);
-            if (nextSequence == null) {
-                 nextSequence = new CollatzSequence(nextTerm);
-                 nextSequence.calculateSequence();
-            }
+            nextSequence = getSequence(nextTerm);
             numberOfTerms = 1 + nextSequence.getNumberOfTerms();
         }
-        sequenceMap.put(startNumber, this);
     }
 
     int calculateNextTerm() {
@@ -57,30 +57,19 @@ public class CollatzSequence {
         }
     }
 
-    CollatzSequence getSequence(int number) {
-        if (startNumber == number) {
-            return this;
-        } else if (nextSequence != null) {
-            return nextSequence.getSequence(number);
+    public static CollatzSequence getSequence(int number) {
+        CollatzSequence sequence;
+        sequence = sequenceMap.get(number);
+        if (sequence == null) {
+            sequence = new CollatzSequence(number);
+            sequence.calculateSequence();
+            sequenceMap.put(number, sequence);
         } else {
-            return null;
+            sequence.references++;
         }
-    }
-
-    CollatzSequence getSequenceFromMap(int number) {
-        if (sequenceMap.isEmpty()) {
-            return null;
+        if (sequence.references == 2) {
+            sequenceMap.remove(number);
         }
-
-        CollatzSequence sequence = sequenceMap.get(number);
-        if (sequence != null) {
-            return sequence;
-        }
-
-        for (CollatzSequence value : sequenceMap.values()) {
-            return value.getSequence(number);
-        }
-
-        return null;
+        return sequence;
     }
 }

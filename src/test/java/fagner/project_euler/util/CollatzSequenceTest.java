@@ -8,52 +8,30 @@ public class CollatzSequenceTest {
 
     @Test
     public void calculateSequence_13_10terms() {
-        //given
-        CollatzSequence collatzSequence = new CollatzSequence(13);
-        //when
-        collatzSequence.calculateSequence();
-        //then
+        CollatzSequence collatzSequence = CollatzSequence.getSequence(13);
         assertThat(collatzSequence.getNumberOfTerms()).isEqualTo(10);
     }
 
     @Test
     public void calculateSequence_14_18terms() {
-        //given
-        CollatzSequence collatzSequence13 = new CollatzSequence(13);
-        collatzSequence13.calculateSequence();
+        CollatzSequence.getSequence(13);
 
-        //when
-        CollatzSequence collatzSequence14 = new CollatzSequence(14);
-        collatzSequence14.calculateSequence();
-
-        //then
+        CollatzSequence collatzSequence14 = CollatzSequence.getSequence(14);
         assertThat(collatzSequence14.getNumberOfTerms()).isEqualTo(18);
     }
 
     @Test
     public void calculateSequence_9_20terms() {
-        //given
-        CollatzSequence collatzSequence13 = new CollatzSequence(13);
-        collatzSequence13.calculateSequence();
+        CollatzSequence.getSequence(13);
+        CollatzSequence.getSequence(14);
 
-        CollatzSequence collatzSequence14 = new CollatzSequence(14);
-        collatzSequence14.calculateSequence();
-
-        //when
-        CollatzSequence collatzSequence9 = new CollatzSequence(9);
-        collatzSequence9.calculateSequence();
-        //then
+        CollatzSequence collatzSequence9 = CollatzSequence.getSequence(9);
         assertThat(collatzSequence9.getNumberOfTerms()).isEqualTo(20);
     }
 
     @Test
     public void calculateSequence_500_111terms() {
-        //given
-        CollatzSequence collatzSequence500 = new CollatzSequence(500);
-
-        //when
-        collatzSequence500.calculateSequence();
-        //then
+        CollatzSequence collatzSequence500 = CollatzSequence.getSequence(500);
         assertThat(collatzSequence500.getNumberOfTerms()).isEqualTo(111);
     }
 }
