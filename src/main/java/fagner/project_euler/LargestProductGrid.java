@@ -1,6 +1,6 @@
 package fagner.project_euler;
 
-import fagner.project_euler.util.GreatestProduct;
+import fagner.project_euler.util.GreatestValue;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 
@@ -9,10 +9,10 @@ import org.apache.commons.math3.linear.RealMatrix;
  */
 public class LargestProductGrid {
 
-    private GreatestProduct greatestProduct;
+    private GreatestValue greatestProduct;
 
     public LargestProductGrid() {
-        greatestProduct = new GreatestProduct(1);
+        greatestProduct = new GreatestValue(1);
     }
 
     /**
@@ -38,28 +38,28 @@ public class LargestProductGrid {
     private void calculateGreatestProduct4AdjacentNumbersInAnInverseDiagonal(RealMatrix grid, int rowIndex, int columnIndex) {
         if (columnIndex >= 3 && rowIndex <= grid.getRowDimension()-4) {
             double productInverseDiagonal = multiply4AdjacentNumberInAnInverseDiagonal(grid, rowIndex, columnIndex);
-            greatestProduct.setIfItIsTheGreatestProduct(productInverseDiagonal);
+            greatestProduct.setIfItIsTheGreatestValue(productInverseDiagonal);
         }
     }
 
     private void calculateGreatestProduct4AdjacentNumbersInADiagonal(RealMatrix grid, int rowIndex, int columnIndex) {
         if (columnIndex <= grid.getRowDimension()-4 && rowIndex <= grid.getRowDimension()-4) {
             double productDiagonal = multiply4AdjacentNumbersInADiagonal(grid, rowIndex, columnIndex);
-            greatestProduct.setIfItIsTheGreatestProduct(productDiagonal);
+            greatestProduct.setIfItIsTheGreatestValue(productDiagonal);
         }
     }
 
     private void calculateGreatestProduct4AdjacentNumbersInAColumn(RealMatrix grid, int rowIndex, int columnIndex) {
         if (rowIndex <= grid.getRowDimension()-4) {
             double productColumn = multiply4AdjacentNumbersInAColumn(grid, rowIndex, columnIndex);
-            greatestProduct.setIfItIsTheGreatestProduct(productColumn);
+            greatestProduct.setIfItIsTheGreatestValue(productColumn);
         }
     }
 
     private void calculateGreatestProduct4AdjacentNumbersInARow(RealMatrix grid, int rowIndex, int columnIndex) {
         if (columnIndex <= grid.getRowDimension()-4) {
             double productRow = multiply4AdjacentNumbersInARow(grid, rowIndex, columnIndex);
-            greatestProduct.setIfItIsTheGreatestProduct(productRow);
+            greatestProduct.setIfItIsTheGreatestValue(productRow);
         }
     }
 

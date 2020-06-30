@@ -1,7 +1,5 @@
 package fagner.project_euler;
 
-import fagner.project_euler.util.CollatzSequence;
-
 import java.util.*;
 
 /**
@@ -10,24 +8,61 @@ import java.util.*;
 public class LongestCollatzSequence {
 
     /**
-     * Time complexity:
+     * Time complexity: O(n)
      * @param lastNumber
      * @return
      */
     public long calculate(int lastNumber) {
-        CollatzSequence largestSequence = CollatzSequence.getSequence(1);
+        int largestSequence = 1;
+        long numberWithLargestSequence = 1;
 
-        for (long i = 2; i <= lastNumber; i++) {
-            CollatzSequence collatzSequence = CollatzSequence.getSequence(i);
-            if (!collatzSequence.isReferencedByTwoTerms()) {
-                if (collatzSequence.largerThan(largestSequence)) {
-                    largestSequence = collatzSequence;
-                }
+        LinkedHashSet<Long> items = createItemsSet(lastNumber);
+
+        int iterations = 0;
+        while(!items.isEmpty()) {
+            iterations++;
+            long startNumber = items.stream().findFirst().get();
+            items.remove(startNumber);
+
+            int numberOfTerms = calculateNumberOfTerms(items, startNumber);
+
+            if (numberOfTerms > largestSequence) {
+                numberWithLargestSequence = startNumber;
+                largestSequence = numberOfTerms;
             }
         }
 
-        System.out.println("Iterations = "+CollatzSequence.iterations);
-        return largestSequence.getStartNumber();
+        System.out.println("Iterations = "+iterations);
+        return numberWithLargestSequence;
+    }
+
+    private LinkedHashSet<Long> createItemsSet(int lastNumber) {
+        LinkedHashSet<Long> items = new LinkedHashSet<>();
+        for (long i = lastNumber; i >= 1; i--) {
+            items.add(i);
+        }
+        return items;
+    }
+
+    private int calculateNumberOfTerms(LinkedHashSet<Long> items, long startNumber) {
+        long nextTerm = startNumber;
+        int countSequence = 1;
+
+        while(nextTerm != 1) {
+            nextTerm = calculateNextTerm(nextTerm);
+            countSequence++;
+            items.remove(nextTerm);
+        }
+        return countSequence;
+    }
+
+    private long calculateNextTerm(long nextTerm) {
+        if (nextTerm % 2 == 0) {
+            nextTerm =  nextTerm / 2;
+        } else {
+            nextTerm = (nextTerm * 3) + 1;
+        }
+        return nextTerm;
     }
 
     public static void main(String[] args) {
