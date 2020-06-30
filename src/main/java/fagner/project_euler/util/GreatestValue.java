@@ -1,13 +1,13 @@
 package fagner.project_euler.util;
 
-public class GreatestProduct {
+public class GreatestValue {
     private double greatestProduct;
 
-    public GreatestProduct(double initialValue) {
+    public GreatestValue(double initialValue) {
         this.greatestProduct = initialValue;
     }
 
-    public void setIfItIsTheGreatestProduct(double value) {
+    public void setIfItIsTheGreatestValue(double value) {
         if (value > greatestProduct) {
             this.greatestProduct = value;
         }
